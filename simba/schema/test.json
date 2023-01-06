@@ -1,0 +1,10 @@
+{
+"path":"../data/test.csv",
+"headers":
+	{
+	"a":"TEXT",
+	"b":"TEXT"
+	}
+
+
+}

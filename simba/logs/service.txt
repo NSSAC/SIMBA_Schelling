@@ -1,0 +1,68 @@
+['../bin/modules/server.py', 'schelling.enviroment']
+ * Serving Flask app 'server' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://10.250.124.107:5000/ (Press CTRL+C to quit)
+[2022-12-15 16:28:01,991] ERROR in app: Exception on /reset [GET]
+Traceback (most recent call last):
+  File "/home/sms8fr/.conda/envs/model/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3361, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 76, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 108, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5198, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5206, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'neighbors'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/sms8fr/.conda/envs/model/lib/python3.7/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/sms8fr/.conda/envs/model/lib/python3.7/site-packages/flask/app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/sms8fr/.conda/envs/model/lib/python3.7/site-packages/flask/app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/sms8fr/.conda/envs/model/lib/python3.7/site-packages/flask/app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "../bin/modules/server.py", line 52, in reset
+    write_state(env.reset())
+  File "/sfs/qumulo/qhome/sms8fr/schelling/bin/modules/schelling/enviroment.py", line 168, in reset
+    nb = synthfr.columns.get_loc("neighbors")
+  File "/home/sms8fr/.conda/envs/model/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3363, in get_loc
+    raise KeyError(key) from err
+KeyError: 'neighbors'
+10.153.0.22 - - [15/Dec/2022 16:28:02] "[35m[1mGET /reset HTTP/1.1[0m" 500 -
+[2022-12-15 16:29:33,487] ERROR in app: Exception on /reset [GET]
+Traceback (most recent call last):
+  File "/home/sms8fr/.conda/envs/model/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3361, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 76, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 108, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5198, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5206, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'neighbors'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/sms8fr/.conda/envs/model/lib/python3.7/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/sms8fr/.conda/envs/model/lib/python3.7/site-packages/flask/app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/sms8fr/.conda/envs/model/lib/python3.7/site-packages/flask/app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/sms8fr/.conda/envs/model/lib/python3.7/site-packages/flask/app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "../bin/modules/server.py", line 52, in reset
+    write_state(env.reset())
+  File "/sfs/qumulo/qhome/sms8fr/schelling/bin/modules/schelling/enviroment.py", line 168, in reset
+    nb = synthfr.columns.get_loc("neighbors")
+  File "/home/sms8fr/.conda/envs/model/lib/python3.7/site-packages/pandas/core/indexes/base.py", line 3363, in get_loc
+    raise KeyError(key) from err
+KeyError: 'neighbors'
+10.153.0.22 - - [15/Dec/2022 16:29:33] "[35m[1mGET /reset HTTP/1.1[0m" 500 -
+slurmstepd: error: *** JOB 45653735 ON udc-aj38-17c1 CANCELLED AT 2022-12-15T16:34:55 ***

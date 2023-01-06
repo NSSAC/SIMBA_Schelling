@@ -11,5 +11,5 @@ mkdir "logs"
 
 chmod -R 755 "logs"
 
-sbatch ../simba/bin/main.slurm ../config.json
+sbatch ../simba/main.slurm ../data/config.json
 

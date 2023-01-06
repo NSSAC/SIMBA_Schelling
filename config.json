@@ -1,8 +1,0 @@
-{
-    "modules":{
-        "schelling":{
-            "path":"/home/sms8fr/simba_schelling/schelling/enviornment.py",
-            "priority":0
-        }
-    }
-}

@@ -1,0 +1,12 @@
+/var/spool/slurm/slurmd/job41321275/slurm_script: line 9: activate: No such file or directory
+Traceback (most recent call last):
+  File "test.py", line 73, in <module>
+    conn = conn_db()
+  File "test.py", line 58, in conn_db
+    database="test_db", user="testuser", password="testpass", host=ip, port="5432")
+  File "/home/sms8fr/.conda/envs/model/lib/python3.7/site-packages/psycopg2/__init__.py", line 127, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not connect to server: Connection refused
+	Is the server running on host "10.155.197.71" and accepting
+	TCP/IP connections on port 5432?
+

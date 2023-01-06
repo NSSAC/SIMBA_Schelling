@@ -1,0 +1,51 @@
+Start Instance
+INFO:    instance started successfully
+Start postgresql
+/scif/apps/start/scif/runscript: 6: [: missing ]
+Starting on port 5432
+waiting for server to start....2022-08-01 12:21:38.699 EDT [32] LOG:  starting PostgreSQL 12.1 (Debian 12.1-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+2022-08-01 12:21:38.700 EDT [32] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2022-08-01 12:21:38.700 EDT [32] LOG:  listening on IPv6 address "::", port 5432
+2022-08-01 12:21:38.761 EDT [32] LOG:  listening on Unix socket "/data/sockets/.s.PGSQL.5432"
+2022-08-01 12:21:39.042 EDT [33] LOG:  database system was shut down at 2022-08-01 12:19:35 EDT
+2022-08-01 12:21:39.180 EDT [32] LOG:  database system is ready to accept connections
+ done
+server started
+Create DB test_db
+2022-08-01 12:21:39.495 EDT [49] ERROR:  database "test_db" already exists
+2022-08-01 12:21:39.495 EDT [49] STATEMENT:  CREATE DATABASE test_db;
+createdb: error: database creation failed: ERROR:  database "test_db" already exists
+2022-08-01 12:21:39.805 EDT [66] ERROR:  role "testuser" already exists
+2022-08-01 12:21:39.805 EDT [66] STATEMENT:  CREATE USER testuser WITH PASSWORD 'testpass'
+ERROR:  role "testuser" already exists
+GRANT
+Write connection and status to sciduct.status.json
+DB running on 10.155.197.71:5432
+Waiting for DB Completion...
+2022-08-01 14:43:23.730 EDT [37] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2022-08-01 15:37:25.248 EDT [37] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2022-08-01 15:37:35.761 EDT [480] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2022-08-02 08:25:23.903 EDT [37] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2022-08-02 08:25:52.914 EDT [37] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2022-08-02 23:36:50.785 EDT [37] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2022-08-02 23:37:01.259 EDT [4316] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2022-08-02 23:37:18.224 EDT [37] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2022-08-03 09:36:00.780 EDT [37] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2022-08-03 10:39:28.423 EDT [37] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2022-08-03 10:39:58.411 EDT [37] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2022-08-03 10:47:58.664 EDT [37] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2022-08-03 10:48:09.136 EDT [5650] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2022-08-03 10:51:28.718 EDT [37] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2022-08-03 10:53:28.963 EDT [37] LOG:  using stale statistics instead of current ones because stats collector is not responding
+2022-08-03 10:53:58.793 EDT [37] LOG:  using stale statistics instead of current ones because stats collector is not responding
+Closing Database...
+Stop DB
+waiting for server to shut down...2022-08-03 12:55:36.581 EDT [32] LOG:  received fast shutdown request
+.2022-08-03 12:55:36.591 EDT [32] LOG:  aborting any active transactions
+2022-08-03 12:55:36.595 EDT [32] LOG:  background worker "logical replication launcher" (PID 39) exited with exit code 1
+2022-08-03 12:55:36.595 EDT [34] LOG:  shutting down
+2022-08-03 12:55:36.780 EDT [32] LOG:  database system is shut down
+ done
+server stopped
+Stop Singularity Instance
+INFO:    Stopping 41271960 instance of /project/biocomplexity/singularity_images/postgres-11.4.sif (PID=259735)

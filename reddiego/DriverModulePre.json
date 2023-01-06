@@ -1,0 +1,10 @@
+{
+    "executable": "/raid/shoops/git/REDDIEGO/sample/bin/DriverModule.sh",
+    "arguments": [],
+    "environment": [
+        {
+            "name": "processMode",
+            "value": "pre"
+        }
+    ]
+}

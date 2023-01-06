@@ -1,0 +1,43 @@
+Start Instance
+INFO:    instance started successfully
+Start postgresql
+/scif/apps/start/scif/runscript: 6: [: missing ]
+Starting on port 5432
+pg_ctl: another server might be running; trying to start server anyway
+waiting for server to start....2022-08-01 11:56:48.588 EDT [32] LOG:  starting PostgreSQL 12.1 (Debian 12.1-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+2022-08-01 11:56:48.589 EDT [32] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2022-08-01 11:56:48.589 EDT [32] LOG:  listening on IPv6 address "::", port 5432
+2022-08-01 11:56:48.683 EDT [32] LOG:  listening on Unix socket "/data/sockets/.s.PGSQL.5432"
+.2022-08-01 11:56:49.661 EDT [33] LOG:  database system was interrupted; last known up at 2022-07-27 13:47:11 EDT
+.2022-08-01 11:56:51.445 EDT [33] LOG:  database system was not properly shut down; automatic recovery in progress
+.2022-08-01 11:56:51.561 EDT [33] LOG:  redo starts at 0/166EB00
+2022-08-01 11:56:51.561 EDT [33] LOG:  invalid record length at 0/166EBE8: wanted 24, got 0
+2022-08-01 11:56:51.561 EDT [33] LOG:  redo done at 0/166EBB0
+2022-08-01 11:56:51.670 EDT [32] LOG:  database system is ready to accept connections
+ done
+server started
+Create DB test_db
+2022-08-01 11:56:52.169 EDT [49] ERROR:  database "test_db" already exists
+2022-08-01 11:56:52.169 EDT [49] STATEMENT:  CREATE DATABASE test_db;
+createdb: error: database creation failed: ERROR:  database "test_db" already exists
+2022-08-01 11:56:52.531 EDT [66] ERROR:  role "testuser" already exists
+2022-08-01 11:56:52.531 EDT [66] STATEMENT:  CREATE USER testuser WITH PASSWORD 'testpass'
+ERROR:  role "testuser" already exists
+GRANT
+Write connection and status to sciduct.status.json
+DB running on 10.155.197.71:5432
+Waiting for DB Completion...
+2022-08-01 12:09:56.996 EDT [111] ERROR:  duplicate key value violates unique constraint "network_pkey"
+2022-08-01 12:09:56.996 EDT [111] DETAIL:  Key (id)=(0) already exists.
+2022-08-01 12:09:56.996 EDT [111] STATEMENT:  INSERT INTO NETWORK (ID,a,b)                      VALUES (0, 1, 1)
+Closing Database...
+Stop DB
+2022-08-01 12:19:34.996 EDT [32] LOG:  received fast shutdown request
+waiting for server to shut down....2022-08-01 12:19:35.001 EDT [32] LOG:  aborting any active transactions
+2022-08-01 12:19:35.006 EDT [32] LOG:  background worker "logical replication launcher" (PID 39) exited with exit code 1
+2022-08-01 12:19:35.006 EDT [34] LOG:  shutting down
+2022-08-01 12:19:35.397 EDT [32] LOG:  database system is shut down
+ done
+server stopped
+Stop Singularity Instance
+INFO:    Stopping 41270368 instance of /project/biocomplexity/singularity_images/postgres-11.4.sif (PID=254326)

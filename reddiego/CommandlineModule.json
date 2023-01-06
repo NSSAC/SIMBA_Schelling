@@ -1,0 +1,12 @@
+{
+    "executable": "/raid/shoops/git/REDDIEGO/sample/bin/CommandLine.sh",
+    "arguments": [
+        "30"
+    ],
+    "environment": [
+        {
+            "name": "foo",
+            "value": "bar"
+        }
+    ]
+}

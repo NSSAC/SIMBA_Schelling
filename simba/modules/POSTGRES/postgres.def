@@ -1,0 +1,90 @@
+Bootstrap: docker
+From: postgres:11.7
+
+%setup
+	mkdir -p $SINGULARITY_ROOTFS/data
+
+%post
+	apt update
+	apt full-upgrade -y
+	apt install -y net-tools
+	apt install -y pgbouncer
+
+%environment
+	DATAROOT=/data
+	PGDATA=$DATAROOT/postgres
+	PGHOST=$DATAROOT/sockets
+	PGBOUNCEDATA=$DATAROOT/pgbounce
+	export PGHOST PGDATA PGBOUNCEDATA
+
+%apprun start
+	mkdir -p $PGHOST
+
+	TESTPORT=5432
+	while [ -z "$PGPORT"]; do
+	        FOUND=$(netstat -ln | grep -c ":$TESTPORT\ ");
+	        if [ $FOUND -gt 0 ];
+		then
+			echo "Port in use: $TESTPORT $FOUND"
+			TESTPORT=$((TESTPORT+1))
+		else
+			PGPORT=$TESTPORT
+		fi
+	done;
+
+	if [ -e $PGDATA/postgresql.conf ];
+	then
+		echo "$(hostname):$PGPORT" > $PGDATA/connection.txt
+		echo "$PGPORT" > $PGDATA/PGPORT
+		echo "Starting on port $PGPORT"
+
+
+		# database folder already has a postgressql.conf, assume db is already initialized	
+		pg_ctl start -w -o "-c unix_socket_directories='$PGHOST' -c port=$PGPORT"
+	else
+		#call the init app
+		/scif/apps/init/scif/runscript
+
+		echo "$(hostname):$PGPORT" > $PGDATA/connection.txt
+		echo "$PGPORT" > $PGDATA/PGPORT
+		echo "Starting on port $PGPORT"
+
+		#start postgres, use /data/sockets to store unix sockets instead of non-writable /var/run
+		pg_ctl start -w -o "-c unix_socket_directories='$PGHOST' -c port=$PGPORT"
+	fi
+	if [ -e $PGBOUNCEDATA/pgbouncer.ini ];
+	then
+		echo "starting pgbouncer ${PGBOUNCEDATA}/pgbouncer.ini"
+		pgbouncer -v -d $PGBOUNCEDATA/pgbouncer.ini	
+	fi
+%apprun stop 
+	PGPORT=$(cat $PGDATA/PGPORT)
+        pg_ctl stop "$@"
+
+
+%apprun init
+	mkdir -p $PGDATA
+
+	# Initialize an empty database folder
+	pg_ctl init
+
+	# allow all users (with pw auth) to access from all hosts.
+	# when running on the clusters, this allows all other cluster nodes to access the db
+	# echo "host all all 0.0.0.0/0 trust" >> $PGDATA/pg_hba.conf
+
+%apprun connection
+	cat $PGDATA/connection.txt
+
+%apprun createdb 
+	export PGPORT=$(cat $PGDATA/PGPORT)
+	createdb -p $PGPORT "$@"
+
+%apprun createuser
+	export PGPORT=$(cat $PGDATA/PGPORT)
+	psql -p $PGPORT -c "CREATE USER $1 WITH PASSWORD '$2'" $3
+	psql -p $PGPORT -c "GRANT ALL PRIVILEGES ON DATABASE \"$3\" to $1" $3
+	#createuser "$@"
+
+%apprun psql
+	export PGPORT=$(cat $PGDATA/PGPORT)
+	psql -p $PGPORT "$@"

@@ -1,8 +1,0 @@
-{
-    "endTime" : 86400.0,
-    "scheduleIntervals" : [
-        {
-            "timePerTick" : 3600.0
-        }
-    ]
-}

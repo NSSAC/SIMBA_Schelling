@@ -3,6 +3,7 @@ import json
 import subprocess
 import time
 import requests
+import db_service as dbs
 
 RANDOM_SEED = 42
 random.seed(RANDOM_SEED)
@@ -69,9 +70,9 @@ def init(modules):
 
         print("HTTP endpoint:", service_ready_url, flush=True)
 
-        f = open("modules.txt", "a")
-        f.write("{},{}".format(module, service_ready_url))
-        f.close()
+        #f = open("modules.txt", "a")
+        #f.write("{},{}".format(module, service_ready_url))
+        #f.close()
 
         return job_id, service_ready_url
 
@@ -79,21 +80,81 @@ def init(modules):
 
         # print(out.json())
 
-    f = open("modules.txt", "w")
-    f.write("")
-    f.close()
+    #f = open("modules.txt", "w")
+    #f.write("")
+    #f.close()
 
     services = []
     db = start_db()
     #modules = ["example_module"]
+    
+    #columns = []
+
+
     for module in modules:
         try:
             services.append(start_service(module['path']))
+            #columns.append(module['columns'])
         except AssertionError as msg:
             print(msg)
             subprocess.check_output(["scancel", "-b", "-s", "SIGINT", db[0]])
             exit()
+
+
+    #print(columns)
+    try:
+        db_connection = dbs.db()
+        db_connection.create_table('STATE', '../data/config.json', from_csv=False, drop=True)
+    except Exception as msg:
+        print(msg)
+        subprocess.check_output(["scancel", "-b", "-s", "SIGINT", db[0]])
+        exit()
+
+
     return db, services
+
+
+
+def connect(urls):
+        
+        with open("../logs/modules.txt", "r") as f:
+                for url in f:
+                        dat = url.split(",")
+                        urls.append(dat[1]+"{}")
+        #url = #"http://udc-aj38-1c0:5000/{}"
+        return urls
+
+def test(url):
+        #print(url)
+        urls = [url+"{}"]#print(urls,flush=True)
+        for url in urls:
+                conn = ""
+                print("Waiting for module", flush=True)
+                while conn == "":
+                    try:
+                        conn = requests.get(url.format(""))
+                        #print(conn,flush=True)
+                    except Exception as msg:
+                        #print(msg)
+                        time.sleep(10)
+                print("starting " + url, flush=True)
+        for url in urls:
+                #print("reset", flush = True)
+                #print(url.format("reset"),flush=True)
+                #data = requests.get(url.format("reset"))
+                #print(data,flush=True)
+                print("starting ticks")
+                tic = 0
+                for i in range(100):
+                        print(tic)
+                        tic += 1
+                        tick = requests.get(url.format("step"))
+                        print(tick.json(),flush=True)
+        #print('Simulating tick %s ...' % str(tick))
+        #simulate_one_tick_start_time = time.time()
+#    req = requests.get(simulate_one_tick_url, params=payload)
+
+
 
 
 if __name__ == '__main__':
@@ -113,6 +174,8 @@ if __name__ == '__main__':
     #path = sys.argv[1]
     db_add, services = init(modules)
 
+    for service in services:
+        test(service[1])
     #host = json.load(open('db.status.json','r'))['host']
 
     #ip = host.split(':')[0]
@@ -124,7 +187,7 @@ if __name__ == '__main__':
 
     # print(db.read_db('NETWORK'))
 
-    time.sleep(500)
+    #time.sleep(500)
 
     subprocess.check_output(["scancel", "-b", "-s", "SIGINT", db_add[0]])
     for service in services:

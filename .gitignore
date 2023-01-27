@@ -1,0 +1,13 @@
+runs_*
+schelling/household.csv
+schelling/person.csv
+schelling/tl_2017_51_tabblock10.zip
+schelling/graph.pkl
+test.py
+tet.py
+te.py
+.1.py
+schelling/env_old.py
+schelling/environment.py
+simba/modules/.db_service_save.py
+temp

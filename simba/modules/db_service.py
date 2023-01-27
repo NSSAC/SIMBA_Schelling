@@ -22,8 +22,16 @@ class db:
 
         self.CURSOR = self.CONNECTION.cursor()
 
-        self.HEADERS = {}
-        self.IDX = {}
+        try:
+            with open('db_schema.json', 'r') as f:
+                data = json.load(f)
+                self.HEADERS = data['headers']
+                self.IDX = data['idx']
+
+                print(self.HEADERS, self.IDX, flush=True)
+        except:
+            self.HEADERS = {}
+            self.IDX = {}
 
     def create_table(self, name, schema, from_csv=False, drop=False):
         '''
@@ -37,19 +45,37 @@ class db:
         if drop:
             self.CURSOR.execute('''DROP TABLE IF EXISTS {}'''.format(name))
 
+        #name = "TEST"
         schema = json.load(open(schema, 'r'))
-        headers = schema['headers']
+        headers = schema['modules']
+        columns = []
+
+        for header in headers:
+            columns.append(headers[header]['columns'])
 
         query = '''CREATE TABLE IF NOT EXISTS {}
-        (ID INT PRIMARY KEY     NOT NULL,
-         {}
-         );
-        '''
+            (ID INT PRIMARY KEY     NOT NULL,
+            {}
+            );
+           '''
         body = ''
+        columns = []
         for header in headers:
-            body += '{}     {}    NOT NULL,'.format(header, headers[header])
-
+            # print(headers[header])
+            for column in headers[header]['columns'].items():
+                # print(column)
+                body += '{}     {}    NOT NULL,'.format(column[0], column[1])
+                columns.append(column[0])
         self.CURSOR.execute(query.format(name, body[:-1]))
+
+        self.IDX[name] = 0
+        self.HEADERS[name] = columns
+        print(self.HEADERS[name], "header", flush=True)
+
+        with open("db_schema.json", "w") as f:
+            write = {"headers":self.HEADERS, "idx":self.IDX}
+            out = json.dumps(write, indent=4)
+            f.write(out)
 
         if from_csv:
             data = csv.reader(open(schema['path'], 'r'))
@@ -75,6 +101,7 @@ class db:
         '''
         if isinstance(data, pd.DataFrame):
             for idx, row in data.iterrows():
+                print(self.IDX, "idx", flush=True)
                 self.IDX[name] += 1
 
                 self.CURSOR.execute('''
@@ -94,13 +121,16 @@ class db:
 
         self.CURSOR.execute('SELECT * FROM {}'.format(name))
         if df:
-            return(pd.DataFrame(self.CURSOR.fetchall(), index=None, columns=self.HEADERS[name]).set_index(""))
+            #print(self.HEADERS, "header2", flush=True)
+            data = self.CURSOR.fetchall()
+            print(data, flush=True)
+            return(pd.DataFrame(data, index=None, columns=self.HEADERS[name]).set_index(""))
         return self.CURSOR.fetchall()
 
 
 if __name__ == '__main__':
     dbs = db()
-    dbs.create_table('NETWORK', '../schema/test.json', from_csv=True, drop=True)
+    dbs.create_table('NETWORK', 'data/config.json', from_csv=True, drop=True)
     # print(dbs.read_db('INFORMATION_SCHEMA.COLUMNS where TABLE_NAME="NETWORK"')
     print(dbs.read_db("INFORMATION_SCHEMA.COLUMNS where TABLE_NAME='NETWORK'", df=False))
     dbs.add('NETWORK', pd.DataFrame({'a': [0, 2, 3], 'b': [3, 2, 1]}))

@@ -1,0 +1,109 @@
+['../simba/modules/server.py', '/home/sms8fr/simba_schelling/schelling/env.py']
+{'STATE': ['HID', 'LID', 'HAPPINESS']} {'STATE': 0}
+ * Serving Flask app 'server' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://10.250.124.117:5000/ (Press CTRL+C to quit)
+10.153.10.132 - - [30/Jan/2023 17:11:40] "GET / HTTP/1.1" 200 -
+Reading Map Geometry
+<class 'geopandas.geodataframe.GeoDataFrame'>
+RangeIndex: 5213 entries, 0 to 5212
+Data columns (total 2 columns):
+ #   Column    Non-Null Count  Dtype   
+---  ------    --------------  -----   
+ 0   GEOID10   5213 non-null   int64   
+ 1   geometry  5213 non-null   geometry
+dtypes: geometry(1), int64(1)
+memory usage: 81.6 KB
+None
+Reading Household Data
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 89145 entries, 2719121 to 2808265
+Data columns (total 4 columns):
+ #   Column               Non-Null Count  Dtype  
+---  ------               --------------  -----  
+ 0   hid                  89145 non-null  int64  
+ 1   hh_income            89145 non-null  int64  
+ 2   residence_longitude  89145 non-null  float64
+ 3   residence_latitude   89145 non-null  float64
+dtypes: float64(2), int64(2)
+memory usage: 3.4 MB
+None
+Reading Person Data
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 7688059 entries, 0 to 7688058
+Data columns (total 2 columns):
+ #   Column  Dtype
+---  ------  -----
+ 0   hid     int64
+ 1   race    int64
+dtypes: int64(2)
+memory usage: 117.3 MB
+None
+Merging Tables
+Converting Geometry
+Finding Neighbors
+<class 'geopandas.geodataframe.GeoDataFrame'>
+Int64Index: 89145 entries, 0 to 89144
+Data columns (total 6 columns):
+ #   Column     Non-Null Count  Dtype   
+---  ------     --------------  -----   
+ 0   hid        89145 non-null  int64   
+ 1   hh_income  89145 non-null  int64   
+ 2   hh_race    89145 non-null  int64   
+ 3   geometry   89145 non-null  geometry
+ 4   lid        89145 non-null  int64   
+ 5   neighbors  89145 non-null  object  
+dtypes: geometry(1), int64(4), object(1)
+memory usage: 4.8+ MB
+None
+           hid  race  income
+0      2719121     2    8500
+1      2719122     2   38000
+2      2719123     1  182800
+3      2719124     1   22000
+4      2719125     2   57500
+...        ...   ...     ...
+89140  2808261     9   41600
+89141  2808262     2   50000
+89142  2808263     1   52000
+89143  2808264     1  109000
+89144  2808265     1   65000
+
+[89145 rows x 3 columns] state
+10.153.10.132 - - [30/Jan/2023 17:21:57] "GET /reset HTTP/1.1" 200 -
+           hid  race  income
+0      2719121     2    8500
+1      2719122     2   38000
+2      2719123     1  182800
+3      2719124     1   22000
+4      2719125     2   57500
+...        ...   ...     ...
+89140  2808261     9   41600
+89141  2808262     2   50000
+89142  2808263     1   52000
+89143  2808264     1  109000
+89144  2808265     1   65000
+
+[89145 rows x 3 columns] this is the state
+10.153.10.132 - - [30/Jan/2023 17:22:16] "GET /step HTTP/1.1" 200 -
+Determining Satisfaction
+           hid    lid  happy
+0      2719121      0   True
+1      2719122      1   True
+2      2719123      2   True
+3      2719124      3  False
+4      2719125      4   True
+...        ...    ...    ...
+89140  2808261  89140  False
+89141  2808262  89141   True
+89142  2808263  89142   True
+89143  2808264  89143   True
+89144  2808265  89144   True
+
+[89145 rows x 3 columns] this is the state
+slurmstepd: error: *** JOB 46366288 ON udc-aj37-2c0 CANCELLED AT 2023-01-30T18:11:29 DUE TO TIME LIMIT ***

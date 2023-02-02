@@ -8,7 +8,8 @@
 		"LID":"INTEGER",
                 "HAPPINESS":"BOOL"
 		
-                }
+                },
+	    "mode":"service"
         }
     }
 }

@@ -1,0 +1,37 @@
+Start Instance
+INFO:    instance started successfully
+Start postgresql
+/scif/apps/start/scif/runscript: 6: [: missing ]
+Starting on port 5432
+waiting for server to start....2023-01-30 17:11:03.377 EST [32] LOG:  starting PostgreSQL 12.1 (Debian 12.1-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+2023-01-30 17:11:03.377 EST [32] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2023-01-30 17:11:03.377 EST [32] LOG:  listening on IPv6 address "::", port 5432
+2023-01-30 17:11:03.387 EST [32] LOG:  listening on Unix socket "/data/sockets/.s.PGSQL.5432"
+2023-01-30 17:11:03.533 EST [33] LOG:  database system was shut down at 2023-01-30 16:38:14 EST
+2023-01-30 17:11:03.585 EST [32] LOG:  database system is ready to accept connections
+ done
+server started
+Create DB test_db
+2023-01-30 17:11:04.378 EST [49] ERROR:  database "test_db" already exists
+2023-01-30 17:11:04.378 EST [49] STATEMENT:  CREATE DATABASE test_db;
+createdb: error: database creation failed: ERROR:  database "test_db" already exists
+2023-01-30 17:11:04.702 EST [66] ERROR:  role "testuser" already exists
+2023-01-30 17:11:04.702 EST [66] STATEMENT:  CREATE USER testuser WITH PASSWORD 'testpass'
+ERROR:  role "testuser" already exists
+GRANT
+Write connection and status to sciduct.status.json
+DB running on 10.155.197.129:5432
+Waiting for DB Completion...
+Closing Database...
+Stop DB
+WARNING: can't determine current working directory: getwd: no such file or directory
+WARNING: can't determine current working directory
+waiting for server to shut down...2023-01-31 11:40:20.587 EST [32] LOG:  received fast shutdown request
+.2023-01-31 11:40:20.591 EST [32] LOG:  aborting any active transactions
+2023-01-31 11:40:20.593 EST [32] LOG:  background worker "logical replication launcher" (PID 39) exited with exit code 1
+2023-01-31 11:40:20.593 EST [34] LOG:  shutting down
+2023-01-31 11:40:20.677 EST [32] LOG:  database system is shut down
+ done
+server stopped
+Stop Singularity Instance
+INFO:    Stopping 46366287 instance of /project/biocomplexity/singularity_images/postgres-11.4.sif (PID=54412)

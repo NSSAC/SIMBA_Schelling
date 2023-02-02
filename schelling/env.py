@@ -12,10 +12,12 @@ class environment:
         self.graph = nx.Graph()
         self.df = pd.DataFrame
         self.PATH = '../schelling'
+        self.INIT = 0
         #self.reset()
 
     # take in previous state
-    def step(self, prevState, mode=0):
+    def step(self, prevState):
+        mode = self.INIT
         def get_average_income(node):
             node_income = self.graph.nodes[node]["income"]
             neighbor_income = []
@@ -76,7 +78,7 @@ class environment:
                 mover_hid = self.graph.nodes[mover]["hid"]
                 mover_race = self.graph.nodes[mover]["race"]
                 mover_income = self.graph.nodes[mover]["income"]
-                mover_geo = self.graph.nodes[mover]["geometry"]
+                #mover_geo = self.graph.nodes[mover]["geometry"]
 
                 race_pref = [
                     n for n in vacant_nodes if get_race_ratio(n, mover_race) >= 0.3
@@ -104,7 +106,7 @@ class environment:
                 temp_graph.nodes[valid_node]["hid"] = mover_hid
                 temp_graph.nodes[valid_node]["race"] = mover_race
                 temp_graph.nodes[valid_node]["income"] = mover_income
-                temp_graph.nodes[valid_node]["geometry"] = mover_geo
+                #temp_graph.nodes[valid_node]["geometry"] = mover_geo
                 temp_graph.nodes[valid_node]["happy"] = True
 
                 vacant_nodes.remove(valid_node)
@@ -119,6 +121,7 @@ class environment:
                 self.df = self.df[['hid','lid', 'happy']]
 
         self.i += 1
+        self.INIT = 1
         return self.df
 
     def reset(self, shuffle=False):
@@ -138,7 +141,7 @@ class environment:
             ["COUNTYFP10", "TRACTCE10", "BLOCKCE10", "GEOID10"]
         ].apply(pd.to_numeric)
         geofr = geofr[geofr["COUNTYFP10"] == 760]
-        #geofr = geofr[geofr["TRACTCE10"].between(10000, 10500)]
+        geofr = geofr[geofr["TRACTCE10"].between(10000, 10200)]
         geofr = geofr.drop(
             [
                 "STATEFP10",
@@ -177,7 +180,7 @@ class environment:
             ],
         )
         housefr = housefr[housefr["admin2"] == 760]
-        housefr = housefr[housefr["admin3"].between(10000, 10500)]
+        #housefr = housefr[housefr["admin3"].between(10000, 10200)]
         housefr = housefr.drop(["admin2", "admin3"], axis=1)
         print(housefr.info())
 
@@ -186,7 +189,6 @@ class environment:
         print(personfr.info())
 
         print("Merging Tables")
-        print("Merging Race")
 
         raceser = personfr.groupby("hid")["race"].apply(list)
         synthfr = pd.merge(housefr, raceser, how="left", left_on="hid", right_on="hid")
@@ -233,14 +235,3 @@ class environment:
             dict(self.graph.nodes(data=True)), orient="index"
         )
         return self.df
-
-if __name__ == '__main__':
-    env = environment()
-    last = env.reset()
-    print(out)
-    for i in range(2):
-        print(last)
-        last = env.step(last)
-
-
-    

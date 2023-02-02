@@ -141,12 +141,12 @@ def test(url):
         for url in urls:
                 #print("reset", flush = True)
                 #print(url.format("reset"),flush=True)
-                #data = requests.get(url.format("reset"))
+                data = requests.get(url.format("reset"))
                 #print(data,flush=True)
                 print("starting ticks")
                 tic = 0
-                for i in range(100):
-                        print(tic)
+                for i in range(15):
+                        print(tic, flush=True)
                         tic += 1
                         tick = requests.get(url.format("step"))
                         print(tick.json(),flush=True)

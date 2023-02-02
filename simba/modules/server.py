@@ -5,7 +5,7 @@ import sys
 import db_service as dbs
 import importlib
 import pandas as pd
-
+import time
 
 RANDOM_SEED = 42
 random.seed(RANDOM_SEED)
@@ -28,6 +28,7 @@ def init(path):
     global tick
     global env
     global state
+    global lastTime
 
     #module = ".....schelling.enviroment"
     #module = __import__(module, fromlist=["environment"])
@@ -51,7 +52,7 @@ def init(path):
     tick = 0
     state = pd.DataFrame
     status = "INIT"
-
+    lastTime = time.time()
 
 def write_state(data):
     '''
@@ -92,10 +93,15 @@ def reset():
     global env
     global status
     global state
+    global lastTime
+   
     staus = "RUNNING"
+    lastTime = time.time() 
     state = env.reset()
     #print(state,"state", flush=True)
     #write_state(state)
+    state.to_csv('reset.csv',mode='a')
+    print("time to reset:", time.time() - lastTime, flush=True)
     return(output())
 
 
@@ -103,9 +109,14 @@ def reset():
 def step():
     global env
     global state
-    #state = get_state()
+    global lastTime
+    #print(state,"this is the state", flush=True)#state = get_state()
     #write_state(env.step(state))
+    lastTime = time.time()
     state = env.step(state)
+    print("Time to step:",time.time() - lastTime,flush=True)
+    state.to_csv('step.csv', mode='a')
+    pd.DataFrame([]).to_csv('step.csv',mode='a')
     return(output())
 
 

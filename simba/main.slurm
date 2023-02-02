@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -t 1:00:00
+#SBATCH -t 24:00:00
 #SBATCH -o logs/main.txt
 #SBATCH -p bii
 #SBATCH --mem=64000

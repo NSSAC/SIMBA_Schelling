@@ -35,3 +35,5 @@ The code minimally requires Python 3.8, Pandas 1.3.5, Geopandas 0.10.2, and Requ
 
 \hsm{Hosting of data.} Can point to a URL for the admin region shapefiles. \hsm{Ian will provide.} Check size of CSV files after removal of unused columns + compress.
 
+
+The source code for the SIMBA/Schelling implementation is made available under the Apache 2.0 license~\footnote{Apache 2.0 license \url{https://www.apache.org/licenses/LICENSE-2.0.html}} and the population data (\url{synthetic_richmond.csv}) is provided under the Creative Commons CC-BY-4.0 license\footnote{CC-BY-4.0~\url{https://creativecommons.org/licenses/by/4.0/}}. Geographic boundary data (\url{geo_reference.csv}) was derived from TIGER/Line data\footnote{https://catalog.data.gov/dataset/tiger-line-shapefile-2017-2010-state-virginia-2010-census-block-state-based}. 

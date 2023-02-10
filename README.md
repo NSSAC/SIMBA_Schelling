@@ -10,8 +10,6 @@ The following preparatory steps are required:
   - The person/household synthetic_richmond.csv
   - The boundary data file geo_reference.csv
 
-  https://net.science/files/0c7ae1b6-13d3-4a97-8851-95e3b0e909f8/
-  
 ## Requirements
 The code minimally requires Python 3.8, Pandas 1.3.5, Geopandas 0.10.2, and Requests 2.28.1. Currently, it has only been tested under Linux.
 

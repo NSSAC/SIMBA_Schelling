@@ -1,8 +1,20 @@
 # SIMBA_Schelling
 
-## This git repository contains code for demonstrating the SIMBA framework in the context of the Schelling model for segregation. It is applied to Richmond, VA for which there is accompanying data. 
+## Summary
+This git repository contains code for demonstrating the SIMBA framework in the context of the Schelling model for segregation. It is applied to Richmond, VA for which there is accompanying data. 
+
+## Licenses
+The code in the SIMBA_Schelling repository uses the Apache 2.0 license. The two data files (a and b) are made available under the CC-BY-4.0 license.
 
 ## Preliminaries
+The following preparatory steps are required:
+- Download the git repository: https://github.com/NSSAC/SIMBA\_Schelling into a base diretory <yournamehere>.
+- Download the person/household file from https:insert-link-here and place into <someplace> (unzip needed?)
+- Download the boundary data file from https:insert-link-here and place into <someplace> (unzip needed?)
+
+## References
+- Anderson, T., Leung, A., Dragicevic, S., Perez, L.: Modeling the geospatial dynamics of residential segregation in three Canadian cities: An agent-based approach. Transactions in GIS 25(2), 948–967 (2021)
+  
 
 # Running Simba
 Execute run.sh to start SIMBA service

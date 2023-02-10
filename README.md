@@ -5,7 +5,7 @@ This git repository contains code for demonstrating the SIMBA framework in the c
 
 ## Preliminaries
 The following preparatory steps are required:
-- Download the git repository: https://github.com/NSSAC/SIMBA\_Schelling into a base diretory <yournamehere>.
+- Download the git repository: https://github.com/NSSAC/SIMBA_Schelling into a base diretory <yournamehere>.
 - From the folder https://net.science/files/0c7ae1b6-13d3-4a97-8851-95e3b0e909f8/ download:
   - The person/household synthetic_richmond.csv
   - The boundary data file geo_reference.csv
@@ -30,7 +30,12 @@ To verify the successful run of the SIMBA Schelling integration, a visualization
 ## Licenses
 The code in the SIMBA_Schelling repository uses the Apache 2.0 license, see https://www.apache.org/licenses/LICENSE-2.0.html. The two data files (a and b) are made available under the CC-BY-4.0 license, see https://creativecommons.org/licenses/by/4.0/. 
 
-## References
+## Citation
+
+Stefan Hoops, Ian Le, Dustin Machi, Henning S. Mortveit, Sami Saliba, Samarth Swarup (2023). SIMBA: A Framework for Rapid and Extensible Agent-based Simulation Development. *Submitted*.
+
+## Further Reading
+- Thomas C. Schelling: Dynamic Models of Segregation, Journal of Mathematical Sociology 1(2), 143-186 (1971). 
 - Anderson, T., Leung, A., Dragicevic, S., Perez, L.: Modeling the geospatial dynamics of residential segregation in three Canadian cities: An agent-based approach. Transactions in GIS 25(2), 948–967 (2021)
 - The geographic boundary data geo_reference.csv was derived from TIGER/Line data, see https://catalog.data.gov/dataset/tiger-line-shapefile-2017-2010-state-virginia-2010-census-block-state-based  
 

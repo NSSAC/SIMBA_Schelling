@@ -4,7 +4,11 @@
 This git repository contains code for demonstrating the SIMBA framework in the context of the Schelling model for segregation. It is applied to Richmond, VA for which there is accompanying data. 
 
 ## Licenses
-The code in the SIMBA_Schelling repository uses the Apache 2.0 license. The two data files (a and b) are made available under the CC-BY-4.0 license.
+The code in the SIMBA_Schelling repository uses the Apache 2.0 license, see https://www.apache.org/licenses/LICENSE-2.0.html. The two data files (a and b) are made available under the CC-BY-4.0 license, see https://creativecommons.org/licenses/by/4.0/. 
+
+
+The source code for the SIMBA/Schelling implementation is made available under the Apache 2.0 license~\footnote{Apache 2.0 license \url{}} and the population data (\url{synthetic_richmond.csv}) is provided under the Creative Commons CC-BY-4.0 license\footnote{CC-BY-4.0~\url{https://creativecommons.org/licenses/by/4.0/}}. 
+
 
 ## Preliminaries
 The following preparatory steps are required:
@@ -14,7 +18,7 @@ The following preparatory steps are required:
 
 ## References
 - Anderson, T., Leung, A., Dragicevic, S., Perez, L.: Modeling the geospatial dynamics of residential segregation in three Canadian cities: An agent-based approach. Transactions in GIS 25(2), 948–967 (2021)
-  
+- The geographic boundary data geo_reference.csv was derived from TIGER/Line data, see https://catalog.data.gov/dataset/tiger-line-shapefile-2017-2010-state-virginia-2010-census-block-state-based  
 
 # Running Simba
 Execute run.sh to start SIMBA service
@@ -51,4 +55,4 @@ The code minimally requires Python 3.8, Pandas 1.3.5, Geopandas 0.10.2, and Requ
 \hsm{Hosting of data.} Can point to a URL for the admin region shapefiles. \hsm{Ian will provide.} Check size of CSV files after removal of unused columns + compress.
 
 
-The source code for the SIMBA/Schelling implementation is made available under the Apache 2.0 license~\footnote{Apache 2.0 license \url{https://www.apache.org/licenses/LICENSE-2.0.html}} and the population data (\url{synthetic_richmond.csv}) is provided under the Creative Commons CC-BY-4.0 license\footnote{CC-BY-4.0~\url{https://creativecommons.org/licenses/by/4.0/}}. Geographic boundary data (\url{geo_reference.csv}) was derived from TIGER/Line data\footnote{https://catalog.data.gov/dataset/tiger-line-shapefile-2017-2010-state-virginia-2010-census-block-state-based}. 
+

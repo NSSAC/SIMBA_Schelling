@@ -1,5 +1,8 @@
 # SIMBA_Schelling
-## A framework for creating and implementing agent based models
+
+## This git repository contains code for demonstrating the SIMBA framework in the context of the Schelling model for segregation. It is applied to Richmond, VA for which there is accompanying data. 
+
+## Preliminaries
 
 # Running Simba
 Execute run.sh to start SIMBA service

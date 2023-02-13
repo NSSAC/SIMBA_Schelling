@@ -11,7 +11,10 @@ The following preparatory steps are required:
   - The boundary data file geo_reference.csv
 
 ## Requirements
-The code minimally requires Python 3.8, Pandas 1.3.5, Geopandas 0.10.2, and Requests 2.28.1. Currently, it has only been tested under Linux.
+The code minimally requires Python 3.8, Pandas 1.3.5, Geopandas 0.10.2, and Requests 2.28.1. Currently, it has only been tested under Linux using the slurm job submission system.
+  
+## Notes
+13 Feb 2023: we are exploring ways to execute the model without the need for using slurm. Updates will be posted when ready.
 
 
 ## Running the Simba-Schelling model

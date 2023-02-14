@@ -18,10 +18,8 @@ The code minimally requires Python 3.8, Pandas 1.3.5, Geopandas 0.10.2, and Requ
 
 
 ## Running the Simba-Schelling model
-NEED UPDDATES HERE
   
-- Execute run.sh to start SIMBA service
-- data/config.json to define module paths and execution order
+- Define module paths and execution order in simba\_schelling/data/config.json
 - Edit the configuration script to reference Schelling environment path and execution variables as defined in simba\_schelling/data/config.json. 
 - Edit configuration script for slurm execution parameters - account details, run times, etc. 
 - Run SIMBA/Schelling through run.sh launcher script; SIMBA assumes the default path to the configuration script to be under data/config.json. In the event other configuration files are created, they can be passed as an argument during execution. 

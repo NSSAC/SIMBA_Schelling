@@ -38,14 +38,14 @@ def init(modules):
 
         return job_id, job_node
 
-    def start_service(module):
+    def start_service(module, data_path):
         '''
         Start and initailize flask api
 	Returns: slurm address, id
 
         '''
         sbatch_output = subprocess.check_output(
-            ["sbatch", "../simba/server.slurm", str(module)])
+            ["sbatch", "../simba/server.slurm", str(module), str(data_path)])
 
         job_id = sbatch_output.decode("utf-8").split()[-1]
 
@@ -85,7 +85,13 @@ def init(modules):
     #f.close()
 
     services = []
+    
+
+ 
     db = start_db()
+    #remove me  
+
+
     #modules = ["example_module"]
     
     #columns = []
@@ -93,7 +99,7 @@ def init(modules):
 
     for module in modules:
         try:
-            services.append(start_service(module['path']))
+            services.append(start_service(module['path'], module['data_path']))
             #columns.append(module['columns'])
         except AssertionError as msg:
             print(msg)
@@ -145,7 +151,7 @@ def test(url):
                 #print(data,flush=True)
                 print("starting ticks")
                 tic = 0
-                for i in range(15):
+                for i in range(5):
                         print(tic, flush=True)
                         tic += 1
                         tick = requests.get(url.format("step"))

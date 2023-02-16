@@ -7,17 +7,15 @@ import random
 import copy
 
 class environment:
-    def __init__(self):
+    def __init__(self,data):
         self.i = 0
         self.graph = nx.Graph()
         self.df = pd.DataFrame
-        self.PATH = '../schelling'
-        self.INIT = 0
+        self.PATH = data
         #self.reset()
 
     # take in previous state
-    def step(self, prevState):
-        mode = self.INIT
+    def step(self, prevState, mode=0):
         def get_average_income(node):
             node_income = self.graph.nodes[node]["income"]
             neighbor_income = []
@@ -43,7 +41,7 @@ class environment:
             )
 
         self.i += 1
-        node_attr = prevState.to_dict(orient="index")
+        node_attr = prevState.set_index('lid').to_dict(orient="index")
 
         nx.set_node_attributes(self.graph, node_attr)
 
@@ -66,8 +64,9 @@ class environment:
             #self.df = self.df["happy"] == True
             self.df['lid'] = self.df.index
             self.df = self.df[['hid','lid', 'happy']]
+            mode = 1
 
-        elif mode == 1:
+        if mode == 1:
             print("Moving")
             temp_graph = self.graph.copy()
             movers = [n for n, h in temp_graph.nodes(data=True) if h["happy"] == False]
@@ -119,9 +118,8 @@ class environment:
                 
                 self.df['lid'] = self.df.index
                 self.df = self.df[['hid','lid', 'happy']]
-
+                mode = 0
         self.i += 1
-        self.INIT = 1
         return self.df
 
     def reset(self, shuffle=False):
@@ -164,7 +162,7 @@ class environment:
         geofr = geofr.reset_index(drop=True)
         geofr["GEOID10"] = geofr["GEOID10"].astype(np.int64)
         geofr = geofr.to_crs(epsg=2925)
-        geofr.to_pickle("geofr.pkl")
+        geofr.to_pickle("./geofr.pckl")
         print(geofr.info())
 
         print("Reading Household Data")
@@ -180,7 +178,7 @@ class environment:
             ],
         )
         housefr = housefr[housefr["admin2"] == 760]
-        #housefr = housefr[housefr["admin3"].between(10000, 10200)]
+        housefr = housefr[housefr["admin3"].between(10000, 10200)]
         housefr = housefr.drop(["admin2", "admin3"], axis=1)
         print(housefr.info())
 
@@ -208,7 +206,7 @@ class environment:
         tree = KDTree(list(zip(synthfr.geometry.x, synthfr.geometry.y)))
 
         pairs = tree.query_pairs(500)
-        synthfr["neighbors"] = np.empty((len(synthfr), 0)).tolist()
+        #synthfr["neighbors"] = np.empty((len(synthfr), 0)).tolist()
     
         for index, row in synthfr.iterrows():
             self.graph.add_node(
@@ -220,18 +218,21 @@ class environment:
             )
 
         lid = synthfr.columns.get_loc("lid")
-        nb = synthfr.columns.get_loc("neighbors")
+        #nb = synthfr.columns.get_loc("neighbors")
         for (i, j) in pairs:
             self.graph.add_edge(synthfr.iloc[i, lid], synthfr.iloc[j, lid])
-            synthfr.iloc[i, nb].append(synthfr.iloc[j, lid])
-            synthfr.iloc[j, nb].append(synthfr.iloc[i, lid])
+            #synthfr.iloc[i, nb].append(synthfr.iloc[j, lid])
+            #synthfr.iloc[j, nb].append(synthfr.iloc[i, lid])
         synthfr = synthfr.drop(
             ["residence_longitude", "residence_latitude", "race"], axis=1
         )
 
         print(synthfr.info())
+        synthfr.to_pickle('./synthfr.pckl')
     
         self.df = pd.DataFrame.from_dict(
             dict(self.graph.nodes(data=True)), orient="index"
         )
+        self.df['lid'] = self.df.index
+
         return self.df

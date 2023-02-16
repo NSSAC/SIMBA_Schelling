@@ -6,4 +6,4 @@
 #SBATCH -A gidi_ml
 
 
-python ../simba/modules/server.py $1
+python ../simba/modules/server.py $1 $2

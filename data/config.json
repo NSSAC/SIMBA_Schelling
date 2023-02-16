@@ -1,6 +1,15 @@
 {
+    "accounts":{
+        "partition":"bii",
+        "account":"gidi_ml",
+        "duration":"24:00:`00"
+    },
+
+
+
     "modules":{
         "schelling":{
+            "data_path":"/home/sms8fr/simba_schelling/schelling",
             "path":"/home/sms8fr/simba_schelling/schelling/env.py",
             "priority":0,
             "columns":{

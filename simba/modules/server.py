@@ -13,7 +13,7 @@ random.seed(RANDOM_SEED)
 app = flask.Flask(__name__)
 
 
-def init(path):
+def init(path, data_path):
     '''
     param::module - python based enviornment to import
 
@@ -43,7 +43,7 @@ def init(path):
     foo = importlib.util.module_from_spec(spec)
     sys.modules["environment"] = foo
     spec.loader.exec_module(foo)
-    env = foo.environment()
+    env = foo.environment(data_path)
 
     #environment = importlib.import_module("..modules..bin..simba..simba_schelling." + module, "environment")
     #env = environment()
@@ -121,6 +121,6 @@ def step():
 
 
 if __name__ == '__main__':
-    print(sys.argv)
-    init(sys.argv[1])
+    print(sys.argv[1])
+    init(sys.argv[1], sys.argv[2])
     app.run(host="0.0.0.0", port=5000, debug=False, use_reloader=False)
